@@ -1,0 +1,34 @@
+<div class="container">
+    <h2 class="mt-5 mb-3">Modification de Cadeau</h2>
+    <form action="/cadeau" method="post">
+      <div class="form-group">
+        <label for="nomCadeau">Nom du Cadeau :</label>
+        <input type="text"  name="nom" class="form-control" id="nomCadeau" placeholder="Entrez le nom du cadeau" value="<%= cadeau_data.nom %>" required>
+      </div>
+      <div class="form-group">
+        <label for="prixPoints">Prix en Points :</label>
+        <input type="number" name="prix" class="form-control" id="prixPoints" placeholder="Entrez le prix en points" value="<%= cadeau_data.prix %>" required>
+      </div>
+
+      <div class="form-group" >
+        <select class="form-select" name="taille" id="taille">
+            <option value="">Selectionnez la taille</option>
+            <option value="s" selected >S</option>
+            <option value="m">M</option>   
+            <option value="l">L</option>        
+            <option value="xl">XL</option>
+            <option value="xxl">XXL</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <% 
+            let n = cadeau_data.couleurs.split(":").length;
+        %>
+        <label for="nbcolor">Nombre de couleurs :</label>
+        <input type="number" class="form-control" id="nbcolor" placeholder="Entrez le nombre de couleurs" value="<%= n %>" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Ajouter</button>
+    </form>
+</div>

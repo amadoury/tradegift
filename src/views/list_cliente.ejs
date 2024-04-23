@@ -1,0 +1,14 @@
+<div class="container">
+    <h2 class="mt-5 mb-3">Liste des clientes</h2>
+    <% let i;
+     for (i = 0; i < allUser.length; i++){ %>
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title"><%= allUser[i].pseudo %></h5>
+                <a href="/modif_client?client=<%= allUser[i].pseudo %>" class="btn btn-primary mr-3">modifier</a>
+                <a href="/delete_client?client=<%= allUser[i].pseudo %>" class="btn btn-primary">supprimer</a>
+            </div>
+        </div>
+    <%}%>
+
+</div>
