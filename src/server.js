@@ -13,7 +13,7 @@ server.use(session({
     rolling:true,
     cookie:{
       sameSite:'strict',
-      maxAge:60000
+      maxAge:600000
     }
 }));
 

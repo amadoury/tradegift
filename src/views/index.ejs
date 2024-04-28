@@ -1,6 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+      <title>Gerante</title>
+      <link rel="stylesheet" href="../style/style.css">
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+        <a class="navbar-brand" href="#">
+            <img src="../assets/logo/logo-no-background.svg"  width="150" height="74" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <%- include('header', {data:data_header}); -%>
+          </ul>
+        </div>
+      </nav>
+    </header>
 
-  <%- include('header', {data:data_header}); -%>
-
-  <%- include(file_to_include); -%>
-
-  <%- include('footer', {file:data_footer}); -%>
+    <main>
+      <%- include(file_to_include); -%>
+    </main>
+  
+    <footer>
+      <div class="container">
+        <p class="d-flex align-items-center justify-content-center">
+          &#169; 2024 Tradegift - All Rights Reserved
+        </p>
+      </div>
+    </footer>
+    <%- include('footer', {file:data_footer}); -%>
+  </body>
+</html>

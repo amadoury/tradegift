@@ -1,0 +1,41 @@
+body{
+    background-color: #e8e8e8;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.navbar{
+    background-color: #f8f8f8;
+    border-bottom: 4 solid black;
+}
+
+@font-face {
+    font-family : myfont;
+    src: url(../fonts/Afacad.ttf);
+}
+
+.myfont{
+    font-family: myfont;
+    font-size: 25px;
+}
+
+.myfont-title{
+    font-family: myfont;
+    font-size: 75px;
+}
+
+
+main{
+    flex-grow: 1;
+}
+
+.mybtn{
+    background-color: #264F0B;
+    color:#fff;
+}
+
+footer{
+    background-color: #101511;
+    color: #fff;
+}

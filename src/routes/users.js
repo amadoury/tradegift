@@ -1,33 +1,7 @@
 const user = require('../models/User');
+const utils = require('./utils');
 
 let client = user.connect();
-
-let data_header_gerante =  [
-    {
-      name:'add cliente',
-      link:'add_cliente'
-    },
-    {
-      name:'add cadeau',
-      link:'cadeau'
-    },
-    {
-        name:'liste cliente',
-        link:'gerante'
-    },
-    {
-        name:'liste cadeaux',
-        link:'list_cadeaux'
-    }
-];
-
-function init(data_header, file_to_include, data_footer){
-  let d = {};
-  d.data_header = data_header;
-  d.file_to_include = file_to_include;
-  d.data_footer = data_footer;
-  return d;
-}
 
 module.exports = {
     login : async (req, res) => {
@@ -44,28 +18,29 @@ module.exports = {
     add_post : async (req, res) => {
       if (req.session.authorized){
         await user.insert(req.body);
-        let data = init(data_header_gerante, 'form_ajout',  '');
+        let data = utils.init(utils.data_header_gerante, 'form_ajout',  '');
         data.allUser = await user.getUsers();
         res.render("index.ejs", data);
       }
       else{
-        redirect('/gerante', {link:"/gerante"});
+        res.render('login.ejs', {link:"/gerante"});
       }
     },
 
     add_get : (req, res) => {
+      console.log("req.session : "+ req.session);
       if (req.session.authorized){
-        let data = init(data_header_gerante, 'form_ajout',  '');
+        let data = utils.init(utils.data_header_gerante, 'form_ajout',  '');
         res.render("index.ejs", data);
       }
       else{
-        res.redirect('/gerante', {link:"/gerante"});
+        res.render('login.ejs', {link:"/gerante"});
       }
     },
 
     list : async (req, res) => {
         if (req.session.authorized){
-          let data = init(data_header_gerante, 'list_cliente',  '../js/modif_client.js');
+          let data = utils.init(utils.data_header_gerante, 'list_cliente',  '../js/modif_client.js');
             data.allUser = await user.getUsers();
             res.render("index.ejs", data);
           }
@@ -77,12 +52,12 @@ module.exports = {
     edit : async (req, res) => {
       if (req.session.authorized){
         let r = await user.search(req.query.client);
-        let data = init(data_header_gerante, 'modif_client',  '');
+        let data = utils.init(utils.data_header_gerante, 'modif_client',  '');
         data.user_data = r;
         res.render('index.ejs', data);
       }
       else{
-        res.redirect('/gerante', {link:"/gerante"});
+        res.render('login.ejs', {link:"/gerante"});
       }
     },
     
@@ -92,7 +67,7 @@ module.exports = {
           res.redirect('/gerante');
         }
         else{
-          res.redirect("/gerante", {link:"gerante"});
+          res.render('login.ejs', {link:"gerante"});
         }
     },
 
