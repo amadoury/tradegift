@@ -7,7 +7,7 @@ let client = cadeau.connect();
 
 module.exports = {
     get_cadeau: (req, res) => {
-        if (req.session.authorized){
+        if (req.session.authorized && req.session.type_user === "gerante"){
             let data = utils.init(utils.data_header_gerante, 'form_cadeau',  '../js/form_cadeau.js');
             res.render("index.ejs", data);
         }
@@ -16,7 +16,7 @@ module.exports = {
         }
     },
     post_cadeau: async (req, res) => {
-        if (req.session.authorized){
+        if (req.session.authorized && req.session.type_user === "gerante"){
             if (req.body.couleur.constructor == Array){
                 req.body.couleur = req.body.couleur.join(":");
             }
@@ -30,7 +30,7 @@ module.exports = {
     },
 
     list: async (req, res) => {
-        if (req.session.authorized){
+        if (req.session.authorized && req.session.type_user === "gerante"){
             let data = utils.init(utils.data_header_gerante, 'list_cadeaux',  '');
             data.allCadeaux = await cadeau.getCadeaux();
             res.render("index.ejs", data);
@@ -40,7 +40,7 @@ module.exports = {
         }
     },
     edit: async (req, res) => {
-        if (req.session.authorized){
+        if (req.session.authorized && req.session.type_user === "gerante"){
             let r = await cadeau.search(req.query.idcadeau);
             let data = utils.init(utils.data_header_gerante, 'modif_cadeau',  '../js/form_cadeau.js');
             data.cadeau_data = r;
@@ -51,7 +51,7 @@ module.exports = {
         }
     },
     delete: async (req, res) => {
-        if (req.session.authorized){
+        if (req.session.authorized && req.session.type_user === "gerante"){
             await cadeau.delete(req.query.idcadeau);
             res.redirect('/list_cadeaux');
         }

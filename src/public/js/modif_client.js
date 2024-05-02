@@ -9,4 +9,6 @@ $(document).ready(function(){
 
         $.post('http://localhost:8080/modif_client', {client:data_client});
     });
+
 });
+

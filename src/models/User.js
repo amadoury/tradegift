@@ -49,10 +49,8 @@ function User(){
     }
 
     this.login = async function(user){
-        let res = await this.search(user.pseudo);
-        
+        let res = await this.search(user.pseudo); 
         if (res){
-            console.log("faux print res dans login : " + res);
             if (res.password === user.password){
                 return true;
             }
@@ -70,6 +68,5 @@ function User(){
         return false;
     };
 }
-
 
 module.exports = new User();

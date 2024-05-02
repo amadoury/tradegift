@@ -3,9 +3,10 @@ body{
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    margin: 0;
 }
 
-.navbar{
+.container-navbar{
     background-color: #f8f8f8;
     border-bottom: 4 solid black;
 }
@@ -25,7 +26,6 @@ body{
     font-size: 75px;
 }
 
-
 main{
     flex-grow: 1;
 }
@@ -35,7 +35,128 @@ main{
     color:#fff;
 }
 
+.mybtn:hover{
+    background-color: #fff;
+    color:#264F0B;
+    border : 1 solid #264F0B;
+}
+
 footer{
     background-color: #101511;
     color: #fff;
+}
+
+#img2{
+    width: 628px;
+    height: 360px;
+    border-radius: 10px;
+    object-fit: cover;
+    object-position: 50% 50%;
+    position: relative;
+    top: -150px;
+}
+
+#img1{
+    width: 390px;
+    height: 250px;
+    border-radius: 10px;
+    object-fit: cover;
+    object-position: 50% 50%;
+    position: relative;
+    top: -180px;
+    left: 220px;
+}
+
+#img3{
+    width: 310px;
+    height: 200px;
+    border-radius: 10px;
+    object-fit: cover;
+    object-position: 50% 50%;
+    position:relative;
+    left: -75px;
+    top : 360px;
+}
+
+.container .row-present {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.cont-text{
+    font-family: myfont;
+    font-size:3rem; 
+    /* font-weight: bold; */
+}
+
+.div-txt{
+    display: flex;
+    align-items: center;
+}
+
+.container .div-btn .btn{
+    border-radius: 1em;
+    padding: 0.5em 1em;
+    margin-left: 5px;
+    font-family: myfont;
+    font-size: 30px;
+}
+
+.container .div-btn .btn:hover{
+    border-radius: 1em;
+    padding: 0.5em 1em;
+    margin-left: 5px;
+    font-family: myfont;
+    font-size: 30px;
+
+}
+
+#img-card {
+    object-fit: cover;
+    width: 100px;
+    height: 75px;
+}
+
+/* .img-main{
+    display: relative;
+    top:50px;
+} */
+
+.text-title{
+    font-family: myfont;
+}
+
+.btn-signin {
+    border: 2px solid #264F0B;
+}
+
+.btn-signin:hover{
+    color: white;
+    background-color: #264F0B;
+}
+
+
+.div-log{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.div-form{
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+/* .card{
+    margin: 2px;
+    border-radius: 1rem;
+} */
+
+@media (min-width: 1200px) {
+    /* .container{
+        max-width: 1200px;
+    } */
+
+    /* .cont-navbar{
+        max-width: 1300px;
+    } */
 }

@@ -1,12 +1,35 @@
+@import url(style.css);
 body{
     margin:0px;
 }
 
-form{
+.form-signin{
     position: absolute;
     left: 50%;
     top: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    width: 330px;
+    /* width: 330px; */
+    background-color: #fff;
+    padding: 100px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;;
+}
+
+
+.myfont{
+    font-family: myfont;
+    font-size: 25px;
+}
+
+h1{
+    font-weight: 400;
+}
+
+.checkbox label{
+    font-family: myfont;
+    font-size: 20px;
+}
+
+.btn:hover{
+    border: 1px solid #264F0B;
 }
