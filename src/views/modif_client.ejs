@@ -1,14 +1,26 @@
-<div class="container">
-    <h2 class="mt-5 mb-3">Modification de Client</h2>
-    <form action="/modif_client" method="post">
-      <div class="form-group">
-        <label for="pseudo">Pseudo :</label>
-        <input type="text" class="form-control" name="pseudo" id="pseudo" placeholder="Entrez votre pseudo" value="<%= user_data.pseudo %>" required>
-      </div>
-      <div class="form-group">
-        <label for="motDePasse">Mot de passe :</label>
-        <input type="text" class="form-control" name="password"  id="motDePasse" placeholder="Entrez votre mot de passe" value="<%= user_data.password %>" required>
-      </div>
-      <button type="submit" class="btn mybtn">modifier</button>
-    </form>
+
+<div class="container div-form">
+  <h2 class="mt-5 mb-3 myfont-title text-center">Modification</h2>
+  <form action="/add_cliente" method="post">
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" name="pseudo" id="floatingInput" placeholder="Entrez votre pseudo" value="<%= user_data.pseudo %>" required>
+      <label for="floatingInput">Pseudo</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" name="password"  id="floatingPassword" placeholder="Entrez votre mot de passe" value="<%= user_data.password %>" required>
+      <label  for="floatingPassword">Password</label>
+    </div>
+
+    <div class="form-floating mb-3">
+      <input type="password" class="form-control" name="points"  id="floatingPoints" placeholder="Entrez les points" required>
+      <label  for="floatingPoints">Points</label>
+    </div>
+
+    <div class="form-floating mb-3">
+      <input type="password" class="form-control" name="dateNaissance"  id="dateNaissance" placeholder="Entrez la Date de Naissance" required>
+      <label for="dateNaissance">Date de Naissance</label>
+    </div>
+
+    <button type="submit" class="btn mybtn mb-3">Modifier</button>
+  </form>
 </div>

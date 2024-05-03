@@ -19,7 +19,7 @@ module.exports = {
 
     login: (req, res) => {
       if (req.session.authorized && req.session.type_user === "cliente"){
-        let data = utils.init(utils.data_header_gerante, 'main',  '');
+        let data = utils.init(utils.data_header_cliente, 'main',  '',true);
         res.render("index.ejs", data);
       }
       else{
@@ -30,7 +30,7 @@ module.exports = {
     add_post : async (req, res) => {
       if (req.session.authorized && req.session.type_user === "gerante"){
         await user.insert(req.body);
-        let data = utils.init(utils.data_header_gerante, 'form_ajout',  '');
+        let data = utils.init(utils.data_header_gerante, 'form_ajout',  '',false);
         data.allUser = await user.getUsers();
         res.render("index.ejs", data);
       }
@@ -41,7 +41,7 @@ module.exports = {
 
     add_get : (req, res) => {
       if (req.session.authorized && req.session.type_user === "gerante"){
-        let data = utils.init(utils.data_header_gerante, 'form_ajout',  '');
+        let data = utils.init(utils.data_header_gerante, 'form_ajout',  '', false);
         res.render("index.ejs", data);
       }
       else{
@@ -51,7 +51,7 @@ module.exports = {
 
     list : async (req, res) => {
         if (req.session.authorized && req.session.type_user === "gerante"){
-          let data = utils.init(utils.data_header_gerante, 'list_cliente',  '../js/modif_client.js');
+          let data = utils.init(utils.data_header_gerante, 'list_cliente',  '../js/modif_client.js', false);
             data.allUser = await user.getUsers();
             res.render("index.ejs", data);
           }
@@ -63,7 +63,7 @@ module.exports = {
     edit : async (req, res) => {
       if (req.session.authorized && req.session.type_user === "gerante"){
         let r = await user.search(req.query.client);
-        let data = utils.init(utils.data_header_gerante, 'modif_client',  '');
+        let data = utils.init(utils.data_header_gerante, 'modif_client',  '', false);
         data.user_data = r;
         res.render('index.ejs', data);
       }
