@@ -11,7 +11,8 @@
     <div class="container-navbar">
       <header class="container cont-navbar">
         <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-light bg-body-tertiary">
-          <a class="navbar-brand" href="#">
+          <% let home = pseudo_client ? "/" : "/gerante"; %>
+          <a class="navbar-brand" href="<%= home %>">
               <img src="../assets/logo/logo-no-background.svg"  width="150" height="74" alt="">
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,8 +26,8 @@
             </div>
             <div class="navbar-nav ms-auto">
               <button type="button" class="btn btn-signin">Logout</button>
-              <% if (is_cliente) { %>
-                <a href="#" class="ms-3">
+              <% if (pseudo_client != undefined) { %>
+                <a href="/account?pseudo=<%= pseudo_client %>" class="ms-3">
                   <img src="../assets/img/utilisateur.png" alt="" width="50px" height="50px">
                 </a>
               <% } %>

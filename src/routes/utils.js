@@ -25,12 +25,12 @@ module.exports = {
         }
     ],
     
-    init: (data_header, file_to_include, data_footer, is_cliente) => {
+    init: (data_header, file_to_include, data_footer, pseudo) => {
         let d = {};
         d.data_header = data_header;
         d.file_to_include = file_to_include;
         d.data_footer = data_footer;
-        d.is_cliente = is_cliente;
+        d.pseudo_client = pseudo;
         return d;
     }
 }

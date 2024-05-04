@@ -39,6 +39,8 @@ async function run(){
     server.get('/modif_client', users.edit);
     server.get('/search', users.search);
     server.get('/logout', users.logout);
+    server.get('/account', users.account);
+    server.get('/change', users.change);
 
     /* cadeaux routes */
     server.get('/cadeau',cadeaux.get_cadeau);

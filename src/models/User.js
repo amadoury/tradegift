@@ -1,4 +1,3 @@
-const e = require('express');
 
 function User(){
     const pg = require('pg');
@@ -28,7 +27,7 @@ function User(){
     }
 
     this.insert = async function(user){
-        await client.query("INSERT INTO \"user\" VALUES ('" + user.pseudo +"','" + user.password +"')");
+        await client.query("INSERT INTO \"user\" VALUES ($1, $2, $3, $4)", [user.pseudo, user.password, user.points, user.dateNaissance]);
     }
 
     this.getUsers = async function(){
@@ -67,6 +66,21 @@ function User(){
         }
         return false;
     };
+
+    /* edit the user's data */
+    this.edit = async (user) => {
+        return new Promise(function(resolve, reject){ 
+            client.query("UPDATE \"user\" SET pseudo=$1, password=$2, points=$3, datenaissance=$4 WHERE pseudo=$5", 
+            [user.pseudo, user.password, user.points, user.dateNaissance, user.pseudo], function(err, result){
+                if (result.rowCount == 0){
+                    return reject(false);
+                }
+                else{
+                    return resolve(true);
+                }
+            });
+        });
+    }
 }
 
 module.exports = new User();

@@ -1,0 +1,21 @@
+<div class="container div-form mt-5">
+    <h2 class="myfont-title text-center">Your Personal Data</h2>
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" name="pseudo" id="floatingInput" placeholder="Entrez votre pseudo" value="<%= user_data.pseudo %>" disabled>
+        <label for="floatingInput">Pseudo</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" name="password"  id="floatingPassword" placeholder="Entrez votre mot de passe" value="<%= user_data.password %>" disabled>
+        <label  for="floatingPassword">Password</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input type="number" class="form-control" name="points"  id="floatingPoints" placeholder="Entrez les points" value="<%= user_data.points %>" disabled>
+        <label  for="floatingPoints">Points</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input type="date" class="form-control" name="dateNaissance"  id="dateNaissance" placeholder="Entrez la Date de Naissance" value="<%= user_data.dateNaissance %>" disabled>
+        <label for="dateNaissance">Date de Naissance</label>
+    </div>
+</div>

@@ -1,10 +1,10 @@
 
 <div class="container div-form">
   <h2 class="mt-5 mb-3 myfont-title text-center">Modification</h2>
-  <form action="/add_cliente" method="post">
+  <form class="form-modif">
     <div class="form-floating mb-3">
-      <input type="text" class="form-control" name="pseudo" id="floatingInput" placeholder="Entrez votre pseudo" value="<%= user_data.pseudo %>" required>
-      <label for="floatingInput">Pseudo</label>
+      <input type="text" class="form-control" name="pseudo" id="floatingPseudo" placeholder="Entrez votre pseudo" value="<%= user_data.pseudo %>" required>
+      <label for="floatingPseudo">Pseudo</label>
     </div>
     <div class="form-floating mb-3">
       <input type="text" class="form-control" name="password"  id="floatingPassword" placeholder="Entrez votre mot de passe" value="<%= user_data.password %>" required>
@@ -12,15 +12,14 @@
     </div>
 
     <div class="form-floating mb-3">
-      <input type="password" class="form-control" name="points"  id="floatingPoints" placeholder="Entrez les points" required>
+      <input type="number" class="form-control" name="points"  id="floatingPoints" placeholder="Entrez les points" value="<%= user_data.points %>" required>
       <label  for="floatingPoints">Points</label>
     </div>
 
     <div class="form-floating mb-3">
-      <input type="password" class="form-control" name="dateNaissance"  id="dateNaissance" placeholder="Entrez la Date de Naissance" required>
+      <input type="date" class="form-control" name="dateNaissance"  id="dateNaissance" placeholder="Entrez la Date de Naissance" value="<%= user_data.datenaissance %>" required>
       <label for="dateNaissance">Date de Naissance</label>
     </div>
-
-    <button type="submit" class="btn mybtn mb-3">Modifier</button>
+    <button type="button" class="btn mybtn mb-3">Modifier</button>
   </form>
 </div>

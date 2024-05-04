@@ -1,5 +1,6 @@
 const user = require('../models/User');
 const utils = require('./utils');
+const moment = require('moment');
 
 let client = user.connect();
 
@@ -10,6 +11,7 @@ module.exports = {
         if (b){
           req.session.type_user = "cliente";
           req.session.authorized = true;
+          req.session.pseudo_client = req.body.pseudo;
           res.json({flag:true, link:"/"});
         }
         else{
@@ -19,7 +21,7 @@ module.exports = {
 
     login: (req, res) => {
       if (req.session.authorized && req.session.type_user === "cliente"){
-        let data = utils.init(utils.data_header_cliente, 'main',  '',true);
+        let data = utils.init(utils.data_header_cliente, 'main',  '', req.session.pseudo_client);
         res.render("index.ejs", data);
       }
       else{
@@ -30,7 +32,7 @@ module.exports = {
     add_post : async (req, res) => {
       if (req.session.authorized && req.session.type_user === "gerante"){
         await user.insert(req.body);
-        let data = utils.init(utils.data_header_gerante, 'form_ajout',  '',false);
+        let data = utils.init(utils.data_header_gerante, 'form_ajout',  '', undefined);
         data.allUser = await user.getUsers();
         res.render("index.ejs", data);
       }
@@ -41,7 +43,7 @@ module.exports = {
 
     add_get : (req, res) => {
       if (req.session.authorized && req.session.type_user === "gerante"){
-        let data = utils.init(utils.data_header_gerante, 'form_ajout',  '', false);
+        let data = utils.init(utils.data_header_gerante, 'form_ajout',  '', undefined);
         res.render("index.ejs", data);
       }
       else{
@@ -51,7 +53,7 @@ module.exports = {
 
     list : async (req, res) => {
         if (req.session.authorized && req.session.type_user === "gerante"){
-          let data = utils.init(utils.data_header_gerante, 'list_cliente',  '../js/modif_client.js', false);
+          let data = utils.init(utils.data_header_gerante, 'list_cliente',  '../js/modif_client.js', undefined);
             data.allUser = await user.getUsers();
             res.render("index.ejs", data);
           }
@@ -63,7 +65,9 @@ module.exports = {
     edit : async (req, res) => {
       if (req.session.authorized && req.session.type_user === "gerante"){
         let r = await user.search(req.query.client);
-        let data = utils.init(utils.data_header_gerante, 'modif_client',  '', false);
+        let formattedDate = moment(r.datenaissance).format('YYYY-MM-DD')
+        r.datenaissance = formattedDate;
+        let data = utils.init(utils.data_header_gerante, 'modif_client',  '../js/modif_client.js', undefined);
         data.user_data = r;
         res.render('index.ejs', data);
       }
@@ -105,5 +109,25 @@ module.exports = {
       let redirect_to = req.session.type_user === "gerante" ? "/gerante" : "/";
       req.session.destroy();
       res.json({link:redirect_to});
+    },
+
+    account: async (req, res) => {
+      console.log("account");
+      if (req.session.authorized && req.session.type_user === "cliente"){
+        let cliente = await user.search(req.query.pseudo);
+        if (cliente){
+          let data = utils.init(utils.data_header_cliente, 'account',  '', req.session.pseudo_client);
+          data.user_data = cliente;
+          res.render('index.ejs', data);
+        }
+      }
+      else{
+        res.redirect('/');
+      }
+    },
+    change: async (req, res) => {
+      user.edit(req.query)
+      .then(function(result) { res.json({flag:true}); })
+      .catch(function(err) { res.json({flag:false}); });
     }
 }
