@@ -1,6 +1,6 @@
 <div class="container div-form">
     <h2 class="mt-5 mb-3 myfont-title text-center">Ajout de Cadeaux</h2>
-    <form action="/cadeau" method="post">
+    <form enctype="multipart/form-data" id="form-cadeau">
       <div class="form-floating mb-3">
         <input type="text"  name="nom" class="form-control" id="nomCadeau" placeholder="Entrez le nom du cadeau" required>
         <label for="nomCadeau">Nom du Cadeau</label>
@@ -10,7 +10,23 @@
         <label for="prixPoints">Prix en Points</label>
       </div>
 
-      <div class="form-floating mb-3" >
+      <div class="form-floating mb-3">
+        <fieldset>
+          <label for="image">Selectionnez l'image</label>
+        </fieldset>
+        <fieldset>
+          <input class="form-control"  type="file" name="image" id="image" />
+        </fieldset>
+      </div>
+
+      <div class="form-check mb-3">
+        <input class="form-check-taille" type="checkbox" value="" id="flexCheckTaille">
+        <label class="form-check-label myfont" for="flexCheckDefault">
+          Voulez-vous Ajouter un taille ?
+        </label>
+      </div>
+
+      <div class="form-floating mb-3 taille" >
         <select class="form-select" name="taille" id="taille">
             <option value="">Selectionnez la taille</option>
             <option value="s">S</option>
@@ -21,8 +37,15 @@
         </select>        
       </div>
 
-      <div class="form-floating mb-3">
-        <input type="number" class="form-control" id="nbcolor" placeholder="Entrez le nombre de couleurs" required>
+      <div class="form-check mb-3">
+        <input class="form-check-couleur" type="checkbox" value="" id="flexCheckCouleur">
+        <label class="form-check-label myfont" for="flexCheckDefault">
+        Ajouter la couleur ?
+        </label>
+      </div>
+
+      <div class="form-floating mb-3 couleur">
+        <input type="number" class="form-control" id="nbcolor" placeholder="Entrez le nombre de couleurs">
         <label for="nbcolor">Nombre de couleurs</label>
       </div>
 

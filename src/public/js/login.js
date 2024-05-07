@@ -1,7 +1,6 @@
 $(document).ready(function(){
     let checkbox = $("#checkbox");
     checkbox.on("click",function(){
-        console.log(checkbox.checked);
         if (checkbox.prop( "checked" )){
             $("input[name^='password']").attr("type", "text");
         }

@@ -1,25 +1,38 @@
 <div class="container">
-    <h2 class="mt-5 mb-3">Liste des Cadeaux</h2>
-    <% let i;
-     for (i = 0; i < allCadeaux.length; i++){ %>
-        <div class="card mb-3">
-            <div class="card-body">
-                <h5 class="card-title"><%= allCadeaux[i].nom %></h5>
+    <h2 class="mt-5 mb-3 text-center">Liste des Cadeaux</h2>
+    <div class="row">
+        <% let i;
+        for (i = 0; i < allCadeaux.length; i++){ %>
+            <!-- <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title"><%= allCadeaux[i].nom %></h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Prix : <%= allCadeaux[i].prix %></li>
+                    <li class="list-group-item">Taille : <%= allCadeaux[i].taille %> </li>
+                    <% let j;
+                    let colors="";
+                    for (j = 0; j < allCadeaux[i].couleurs.length; j++){
+                        colors += allCadeaux[i].couleurs[j] + " ";
+                    }%>
+                    <li class="list-group-item">les couleurs disponibles : <%= colors%></li>
+                </ul>
+                <div class="card-body">
+                    <a href="/modif_cadeau?idcadeau=<%= allCadeaux[i].id %>" class="btn mybtn mr-3">modifier</a>
+                    <a href="/delete_cadeau?idcadeau=<%= allCadeaux[i].id %>" class="btn mybtn">supprimer</a>
+                </div>
+            </div> -->
+            <div class="col-lg-4 col-md-6 mb-3">
+                <div class="card">
+                    <img src="../assets/img/<%= allCadeaux[i].image %>" class="card-img-top" alt="Image du produit" width="150px" height="150px">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= allCadeaux[i].nom %></h5>
+                        <p class="card-text">Prix :<%= allCadeaux[i].prix %></p>
+                        <a href="/modif_cadeau?idcadeau=<%= allCadeaux[i].id %>" class="btn mybtn btn-modif">Modifier</a>
+                        <a id="<%= allCadeaux[i].id %>" class="btn mybtn btn-delete">Supprimer</a>
+                    </div>
+                </div>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Prix : <%= allCadeaux[i].prix %></li>
-                <li class="list-group-item">Taille : <%= allCadeaux[i].taille %> </li>
-                <% let j;
-                let colors="";
-                for (j = 0; j < allCadeaux[i].couleurs.length; j++){
-                    colors += allCadeaux[i].couleurs[j] + " ";
-                }%>
-                <li class="list-group-item">les couleurs disponibles : <%= colors%></li>
-            </ul>
-            <div class="card-body">
-                <a href="/modif_cadeau?idcadeau=<%= allCadeaux[i].id %>" class="btn mybtn mr-3">modifier</a>
-                <a href="/delete_cadeau?idcadeau=<%= allCadeaux[i].id %>" class="btn mybtn">supprimer</a>
-            </div>
-        </div>
-    <%}%>
+        <%}%>
+    </div>
 </div>

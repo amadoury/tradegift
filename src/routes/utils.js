@@ -2,26 +2,26 @@ module.exports = {
     data_header_gerante: [
         {
           name:'Add Cliente',
-          link:'add_cliente'
+          link:'/add_cliente'
         },
         {
           name:'Add Cadeau',
-          link:'cadeau'
+          link:'/cadeau'
         },
         {
             name:'Liste Clientes',
-            link:'gerante'
+            link:'/gerante'
         },
         {
             name:'Liste Cadeaux',
-            link:'list_cadeaux'
+            link:'/list_cadeaux'
         }
     ],
 
     data_header_cliente: [
         {
             name:'Panier',
-            link:'panier'
+            link:'/panier'
         }
     ],
     

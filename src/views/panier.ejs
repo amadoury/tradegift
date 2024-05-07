@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="row panier mt-5">
+        <div class="col-md-8 cart mb-3">
+            <div class="title">
+                <div class="row">
+                    <div class="col mb-3"><h4><b>Shopping Cart</b></h4></div>
+                    <% 
+                        let nb = data_panier.length;
+                        let items = data_panier.length >= 2 ? 'items' : "item";
+                    %>
+                    <div class="col text-end text-muted"><%= nb %> <%= items %></div>
+                </div>
+            </div>    
+            <% 
+            let i;
+            for (i = 0; i < data_panier.length; i++) {%>
+            <div class="row border-top border-bottom mb-3">
+                <div class="row main align-items-center">
+                    <div class="col-2 mt-2 mb-2"><img class="img-fluid" src="../assets/img/<%= data_panier[i].image %>"></div>
+                    <div class="col">
+                        <div class="row"><%= data_panier[i].nom %></div>
+                    </div>
+                    <div class="col">
+                        <a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a>
+                    </div>
+                    <div class="col"><%= data_panier[i].prix %></div>
+                    <div class="col text-end">
+                        <a href="">
+                            <img id="<%= data_panier[i].id %>" class="btn-panier" src="../assets/logo/delete.png" alt="" width="30px" height="30px">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+            <div class="back-to-shop"><a href="/" class="mr-1">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
+        </div>
+        <div class="col-md-4 summary">
+            <div class="title">
+                <div class="row">
+                    <div class="col mb-3"><h4><b>Summary</b></h4></div>
+                </div>
+            </div> 
+            <div class="row border-top:1px solid black; border-bottom">
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,11 +2,20 @@
     <h2 class="mt-5 mb-3">Liste des clientes</h2>
     <% let i;
      for (i = 0; i < allUser.length; i++){ %>
-        <div class="card mb-3">
+        <div class="card mb-3 card-elem">
             <div class="card-body">
                 <h5 class="card-title"><%= allUser[i].pseudo %></h5>
-                <a href="/modif_client?client=<%= allUser[i].pseudo %>" class="btn mybtn mr-3">modifier</a>
-                <a href="/delete_client?client=<%= allUser[i].pseudo %>" class="btn mybtn">supprimer</a>
+            </div>
+            <div class="card-hide">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Password : <%= allUser[i].password %></li>
+                    <li class="list-group-item">Points : <%= allUser[i].points %> </li>
+                    <li class="list-group-item">Date de Naissance : <%= allUser[i].datenaissance %></li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <a href="/modif_client?client=<%= allUser[i].pseudo %>" class="btn mybtn mr-3 modif">modifier</a>
+                <a href="/delete_client?client=<%= allUser[i].pseudo %>" class="btn mybtn supp">supprimer</a>
             </div>
         </div>
     <%}%>

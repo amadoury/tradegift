@@ -18,19 +18,22 @@ function Cadeau(){
     }
 
     this.insert = async function(gift){
-       await client.query("INSERT INTO cadeaux(nom, prix, taille, couleurs) VALUES('"+ gift.nom +"','"+ gift.prix + "','" + gift.taille + "','" + gift.couleur+"')");
+       await client.query("INSERT INTO cadeaux(nom, prix, taille, couleurs, image) VALUES($1, $2, $3, $4, $5)",
+        [gift.nom, gift.prix, gift.taille, gift.couleur, gift.image]);
     };
 
     this.getCadeaux = async function(){
         let res = await client.query("SELECT * FROM cadeaux");
         l = [];
         for (row of res.rows){
+            let colors = row.couleurs ? row.couleurs.split(":") : [];
             let ob = {
                 id:row.id,
                 nom:row.nom,
                 prix:row.prix,
+                image:row.image,
                 taille:row.taille,
-                couleurs:row.couleurs.split(":")
+                couleurs:colors
             };
             l.push(ob);
         }
@@ -50,6 +53,23 @@ function Cadeau(){
 
     this.delete = async function(idcadeau){
         await client.query("DELETE FROM \"cadeaux\" WHERE id = " + idcadeau);
+    }
+    
+    this.edit = async (cad) => {
+        await client.query("UPDATE cadeaux SET nom=$1, prix=$2, taille=$3, couleurs=$4, image=$4 WHERE id = $5", 
+            [cad.nom, cad.prix, cad.taille, cad.couleur,cad.image, cad.id]
+        );
+    }
+
+    this.cadUser = async (pointUser) => {
+        let all = await this.getCadeaux();
+        let l = [];
+        for(elem of all){
+            if (elem.prix <= pointUser){
+                l.push(elem);
+            }
+        }
+        return l;
     }
 }
 

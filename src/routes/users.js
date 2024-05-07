@@ -1,12 +1,13 @@
 const user = require('../models/User');
+const cadeau = require('../models/Cadeau');
 const utils = require('./utils');
 const moment = require('moment');
 
 let client = user.connect();
+let c = cadeau.connect();
 
 module.exports = {
     login_post : async (req, res) => {
-        console.log("dans le route post login");
         let b = await user.login(req.body);
         if (b){
           req.session.type_user = "cliente";
@@ -19,9 +20,12 @@ module.exports = {
         }
     },
 
-    login: (req, res) => {
+    login: async (req, res) => {
       if (req.session.authorized && req.session.type_user === "cliente"){
-        let data = utils.init(utils.data_header_cliente, 'main',  '', req.session.pseudo_client);
+        let data = utils.init(utils.data_header_cliente, 'main',  '../js/main.js', req.session.pseudo_client);
+        let pointUser = await user.getPointUser(req.session.pseudo_client);
+        let cadUser = await cadeau.cadUser(pointUser);
+        data.cadUser = cadUser;
         res.render("index.ejs", data);
       }
       else{
@@ -52,14 +56,14 @@ module.exports = {
     },
 
     list : async (req, res) => {
-        if (req.session.authorized && req.session.type_user === "gerante"){
-          let data = utils.init(utils.data_header_gerante, 'list_cliente',  '../js/modif_client.js', undefined);
-            data.allUser = await user.getUsers();
-            res.render("index.ejs", data);
-          }
-          else{
-            res.render('login.ejs', {link:"/gerante"});
-          }
+      if (req.session.authorized && req.session.type_user === "gerante"){
+        let data = utils.init(utils.data_header_gerante, 'list_cliente',  '../js/list_client.js', undefined);
+          data.allUser = await user.getUsers();
+          res.render("index.ejs", data);
+      }
+      else{
+        res.render('login.ejs', {link:"/gerante"});
+      }
     },
 
     edit : async (req, res) => {
@@ -99,10 +103,8 @@ module.exports = {
     },
 
     search: async (req, res) => {
-      console.log("dans la requete wnzjeiugbbzugbfzifzg");
-      // console.log("req.query : " + req.query);
-      // let b = await user.login(req.query);
-      // res.json(b);
+      let b = await user.search(req.query.pseudo);
+      res.json(b);
     },
 
     logout: async (req, res) => {
@@ -112,10 +114,11 @@ module.exports = {
     },
 
     account: async (req, res) => {
-      console.log("account");
       if (req.session.authorized && req.session.type_user === "cliente"){
         let cliente = await user.search(req.query.pseudo);
         if (cliente){
+          let formattedDate = moment(cliente.datenaissance).format('YYYY-MM-DD')
+          cliente.datenaissance = formattedDate;
           let data = utils.init(utils.data_header_cliente, 'account',  '', req.session.pseudo_client);
           data.user_data = cliente;
           res.render('index.ejs', data);
@@ -125,6 +128,7 @@ module.exports = {
         res.redirect('/');
       }
     },
+
     change: async (req, res) => {
       user.edit(req.query)
       .then(function(result) { res.json({flag:true}); })

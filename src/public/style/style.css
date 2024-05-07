@@ -152,6 +152,21 @@ footer{
     border-radius: 1rem;
 } */
 
+
+.cart{
+    background-color: #fff;
+    padding: 30px;
+}
+
+.summary{
+    background-color: #dddddd;
+    padding: 30px;
+}
+
+.panier{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
 @media (min-width: 1200px) {
     /* .container{
         max-width: 1200px;
