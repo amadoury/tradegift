@@ -32,5 +32,26 @@ module.exports = {
         d.data_footer = data_footer;
         d.pseudo_client = pseudo;
         return d;
+    },
+
+    get_prix : (req, idcadeau) => {
+        for(var i = 0; i < req.session.panier.length; i++){
+            if (req.session.panier[i].id == idcadeau){
+                return req.session.panier[i].prix;
+            }
+        }
+        return 0;
+    },
+
+    calcul_total : (req) => {
+        let donne;
+        Object.entries(req.body).forEach(([k, v], i) => donne = k);
+        donne= '[' + donne + ']';
+        donne = JSON.parse('[' + donne + ']');
+        let sum = 0;
+        for(var i = 0; i < donne[0].length; i++){
+            sum += module.exports.get_prix(req, donne[0][i].id) * donne[0][i].qte; 
+        }
+        return sum;
     }
 }

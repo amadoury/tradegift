@@ -64,6 +64,8 @@ async function run(){
     server.post('/panier', cadeaux.post_panier);
     server.get('/panier', cadeaux.get_panier);
     server.post('/del_article_panier', cadeaux.del_article_panier);
+    server.post('/panier_total', cadeaux.panier_total);
+    server.post('/valid_cart', cadeaux.valid_cart);
 
     server.use((req, res)=> {
       console.log(req.body);

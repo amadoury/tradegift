@@ -85,6 +85,10 @@ function User(){
     this.getPointUser = async (pseudo) => {
         let pt = await client.query("SELECT points FROM \"user\" WHERE pseudo=$1", [pseudo]);
         return pt.rows[0].points;
+    },
+
+    this.setPointUser = async (pseudo, rest) => {
+        await client.query("UPDATE \"user\" SET points =$1 WHERE pseudo=$2", [rest,pseudo]);
     }
 }
 

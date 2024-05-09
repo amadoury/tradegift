@@ -3,7 +3,7 @@
         <div class="col-md-8 cart mb-3">
             <div class="title">
                 <div class="row">
-                    <div class="col mb-3"><h4><b>Shopping Cart</b></h4></div>
+                    <div class="col mb-3 title-cart"><h4><b>Shopping Cart</b></h4></div>
                     <% 
                         let nb = data_panier.length;
                         let items = data_panier.length >= 2 ? 'items' : "item";
@@ -15,15 +15,18 @@
             let i;
             for (i = 0; i < data_panier.length; i++) {%>
             <div class="row border-top border-bottom mb-3">
-                <div class="row main align-items-center">
+                <div class="row align-items-center">
                     <div class="col-2 mt-2 mb-2"><img class="img-fluid" src="../assets/img/<%= data_panier[i].image %>"></div>
                     <div class="col">
-                        <div class="row"><%= data_panier[i].nom %></div>
+                        <div class="row myfont"><%= data_panier[i].nom %></div>
                     </div>
                     <div class="col">
-                        <a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a>
+                        <div class="form-floating mb-3">
+                            <input id="<%= data_panier[i].id %>" type="number" class="form-control" name="quantite"  id="floatingQuantite"  placeholder="Entrez la quantite" required>
+                            <label  for="floatingQuantite">Quantite</label>
+                          </div>
                     </div>
-                    <div class="col"><%= data_panier[i].prix %></div>
+                    <div class="col text-center"><p class="prix myfont"><%= data_panier[i].prix %></p></div>
                     <div class="col text-end">
                         <a href="">
                             <img id="<%= data_panier[i].id %>" class="btn-panier" src="../assets/logo/delete.png" alt="" width="30px" height="30px">
@@ -32,17 +35,38 @@
                 </div>
             </div>
             <% } %>
+
             <div class="back-to-shop"><a href="/" class="mr-1">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
         </div>
         <div class="col-md-4 summary">
-            <div class="title">
-                <div class="row">
-                    <div class="col mb-3"><h4><b>Summary</b></h4></div>
+                <div class="title">
+                    <div class="row">
+                        <div class="col mb-3"><h4><b>Summary</b></h4></div>
+                    </div>
+                </div> 
+                <% let j;
+                for(j = 0; j < data_panier.length; j++) {%>
+                <div class="row row-details">
+                        <div class="col">
+                            <p class="myfont"><%= data_panier[j].nom %></p>
+                        </div>
+                        <div class="col text-center">
+                            <span class="myfont">x</span>
+                        </div>
+                        <div class="col">
+                            <p name="<%= data_panier[j].id %>" class="qte text-center myfont"></p>
+                        </div>
+                        <div class="col">
+                            <p class="result myfont"></p>
+                        </div>
                 </div>
-            </div> 
-            <div class="row border-top:1px solid black; border-bottom">
-
-            </div>
+                <% } %>
+                <div>
+                    <p class="total myfont"></p>
+                </div>
+                <div>
+                    <button class="valid-cart" type="button" class="btn mybtn">Valid Cart</button>
+                </div>
         </div>
     </div>
 </div>

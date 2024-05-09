@@ -1,9 +1,11 @@
 const cadeau = require('../models/Cadeau');
+const user = require('../models/User');
 const utils = require('./utils');
 
 /* color logo : #264F0B */
 
 let client = cadeau.connect();
+let cl = user.connect();
 
 module.exports = {
     get_cadeau: (req, res) => {
@@ -87,6 +89,7 @@ module.exports = {
     post_panier: async (req, res) => {
         if (req.session.authorized && req.session.type_user === "cliente"){
             let r = await cadeau.search(req.body.idcadeau);
+            //on doit check si le total dans le panier + le cadeau qu'on doit ajouter est <= pointUser
             if (r){
                 if (req.session.panier){
                     req.session.panier.push(r);
@@ -129,6 +132,35 @@ module.exports = {
         }
         else{
             res.redirect('/panier');
+        }
+    },
+
+    panier_total: (req, res) => {
+        if(req.session.authorized && req.session.type_user == "cliente"){
+            let t = utils.calcul_total(req);
+            res.json({total: t});
+        }
+        else{
+            res.redirect('/panier'); 
+        }
+    },
+
+    valid_cart: async (req, res) => {
+        if(req.session.authorized && req.session.type_user == "cliente"){
+            let total = utils.calcul_total(req);
+            console.log("total " + total);
+            let points_client = await user.getPointUser(req.session.pseudo_client);
+            if (total <= points_client){
+                await user.setPointUser(req.session.pseudo_client, points_client - total);
+                req.session.panier = [];
+                res.json({can_buy:true});
+            }
+            else{
+                res.json({can_buy:false});
+            }
+        }
+        else{
+            res.redirect('/panier'); 
         }
     }
 }
