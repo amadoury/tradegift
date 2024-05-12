@@ -38,14 +38,18 @@
 
             <div class="back-to-shop"><a href="/" class="mr-1">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
         </div>
-        <div class="col-md-4 summary">
-                <div class="title">
-                    <div class="row">
-                        <div class="col mb-3"><h4><b>Summary</b></h4></div>
-                    </div>
-                </div> 
+        <div class="col-md-4 summary d-flex align-items-start flex-column">
+            <div class="title">
+                <div class="row">
+                    <div class="col mb-3"><h4><b>Summary</b></h4></div>
+                </div>
+            </div> 
+            <div class="mb-auto">
                 <% let j;
-                for(j = 0; j < data_panier.length; j++) {%>
+                let sum = 0;
+                for(j = 0; j < data_panier.length; j++) {
+                    sum += data_panier[j].prix 
+                %>
                 <div class="row row-details">
                         <div class="col">
                             <p class="myfont"><%= data_panier[j].nom %></p>
@@ -61,12 +65,13 @@
                         </div>
                 </div>
                 <% } %>
-                <div>
-                    <p class="total myfont"></p>
-                </div>
-                <div>
-                    <button class="valid-cart" type="button" class="btn mybtn">Valid Cart</button>
-                </div>
+            </div>
+            <div>
+                <p class="total myfont">Total : <%= sum %></p>
+            </div>
+            <!-- <div class=""> -->
+                <button class="valid-cart btn mybtn w-100" type="button" class="btn mybtn">VALID CART</button>
+            <!-- </div> -->
         </div>
     </div>
 </div>

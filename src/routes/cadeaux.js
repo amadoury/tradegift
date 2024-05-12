@@ -26,8 +26,15 @@ module.exports = {
                     req.body.couleur = req.body.couleur.join(":");
                 }
             }
+            if (req.body.taille){
+                if (req.body.taille.constructor == Array){
+                    req.body.taille = req.body.taille.join(":");
+                }
+            }
+            console.log("couleur " + req.body.couleur);
+            console.log("couleur " + req.body.taille);
+
             await cadeau.insert(req.body);
-            //let data = utils.init(utils.data_header_gerante, 'form_cadeau',  '../js/form_cadeau.js');
             res.json({flag:true, link:"/cadeau"});
         }
         else{
@@ -49,7 +56,7 @@ module.exports = {
     edit: async (req, res) => {
         if (req.session.authorized && req.session.type_user === "gerante"){
             let r = await cadeau.search(req.query.idcadeau);
-            let data = utils.init(utils.data_header_gerante, 'modif_cadeau',  '../js/form_cadeau.js');
+            let data = utils.init(utils.data_header_gerante, 'modif_cadeau',  '../js/modif_cadeau.js');
             data.cadeau_data = r;
             res.render('index.ejs', data);
         }
@@ -76,9 +83,16 @@ module.exports = {
                     req.body.couleur = req.body.couleur.join(":");
                 }
             }
+
+            if (req.body.taille){
+                if (req.body.taille.constructor == Array){
+                    req.body.taille = req.body.taille.join(":");
+                }
+            }
+            console.log(req.body.taille);
             //await cadeau.insert(req.body);
             await cadeau.edit(req.body);
-            //let data = utils.init(utils.data_header_gerante, 'form_cadeau',  '../js/form_cadeau.js');
+            //let data = utils.init(utils.data_header_gerante, 'm_cadeau',  '../js/form_cadeau.js');
             res.json({flag:true, link:"/modif_cadeau"});
         }
         else{

@@ -27,12 +27,13 @@ function Cadeau(){
         l = [];
         for (row of res.rows){
             let colors = row.couleurs ? row.couleurs.split(":") : [];
+            let len =  row.taille ? row.taille.split(":") : [];
             let ob = {
                 id:row.id,
                 nom:row.nom,
                 prix:row.prix,
                 image:row.image,
-                taille:row.taille,
+                taille:len,
                 couleurs:colors
             };
             l.push(ob);
@@ -56,7 +57,8 @@ function Cadeau(){
     }
     
     this.edit = async (cad) => {
-        await client.query("UPDATE cadeaux SET nom=$1, prix=$2, taille=$3, couleurs=$4, image=$4 WHERE id = $5", 
+        console.log("dans edit " + cad.id);
+        await client.query("UPDATE cadeaux SET nom=$1, prix=$2, taille=$3, couleurs=$4, image=$5 WHERE id = $6", 
             [cad.nom, cad.prix, cad.taille, cad.couleur,cad.image, cad.id]
         );
     }

@@ -8,34 +8,33 @@
       <link rel="stylesheet" href="../style/style.css">
   </head>
   <body>
-    <div class="container-navbar">
-      <header class="container cont-navbar">
-        <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-light bg-body-tertiary">
-          <% let home = pseudo_client ? "/" : "/gerante"; %>
-          <a class="navbar-brand" href="<%= home %>">
-              <img src="../assets/logo/logo-no-background.svg"  width="150" height="74" alt="">
-          </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <div>
-              <ul class="navbar-nav mr-auto">
-                <%- include('header', {data:data_header}); -%>
-              </ul>
-            </div>
-            <div class="navbar-nav ms-auto">
-              <button type="button" class="btn btn-signin">Logout</button>
-              <% if (pseudo_client != undefined) { %>
-                <a href="/account?pseudo=<%= pseudo_client %>" class="ms-3">
-                  <img src="../assets/img/utilisateur.png" alt="" width="50px" height="50px">
-                </a>
-              <% } %>
-            </div>
-          </div>
-        </nav>
-      </header>
-    </div>
+     
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light container-navbar">
+      <div class="container cont-navbar">
+      <% let home = pseudo_client ? "/" : "/gerante"; %>
+      <a class="navbar-brand" href="<%= home %>">
+          <img src="../assets/logo/logo-no-background.svg"  width="150" height="74" alt="">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div>
+          <ul class="navbar-nav mr-auto">
+            <%- include('header', {data:data_header}); -%>
+          </ul>
+        </div>
+        <div class="navbar-nav ms-auto">
+          <button type="button" class="btn btn-signin">Logout</button>
+          <% if (pseudo_client != undefined) { %>
+            <a class="myaccount" href="/account?pseudo=<%= pseudo_client %>">
+              <img class="image-account" src="../assets/img/utilisateur.png" alt="" width="50px" height="50px">
+            </a>
+          <% } %>
+        </div>
+      </div>
+      </div>
+    </nav>
 
     <main>
       <%- include(file_to_include); -%>

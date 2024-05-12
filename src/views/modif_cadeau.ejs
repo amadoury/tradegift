@@ -1,41 +1,9 @@
-<!-- <div class="container">
-    <h2 class="mt-5 mb-3">Modification de Cadeau</h2>
-    <form action="/cadeau" method="post">
-      <div class="form-group">
-        <label for="nomCadeau">Nom du Cadeau :</label>
-        <input type="text"  name="nom" class="form-control" id="nomCadeau" placeholder="Entrez le nom du cadeau" value="<%= cadeau_data.nom %>" required>
-      </div>
-      <div class="form-group">
-        <label for="prixPoints">Prix en Points :</label>
-        <input type="number" name="prix" class="form-control" id="prixPoints" placeholder="Entrez le prix en points" value="<%= cadeau_data.prix %>" required>
-      </div>
-
-      <div class="form-group" >
-        <select class="form-select" name="taille" id="taille">
-            <option value="">Selectionnez la taille</option>
-            <option value="s" selected >S</option>
-            <option value="m">M</option>   
-            <option value="l">L</option>        
-            <option value="xl">XL</option>
-            <option value="xxl">XXL</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <% 
-            let n = cadeau_data.couleurs === null ? 0 : cadeau_data.couleurs.split(":").length;
-        %>
-        <label for="nbcolor">Nombre de couleurs :</label>
-        <input type="number" class="form-control" id="nbcolor" placeholder="Entrez le nombre de couleurs" value="<%= n %>" required>
-      </div>
-
-      <button type="submit" class="btn mybtn">Ajouter</button>
-    </form>
-</div> -->
-
 <div class="container div-form">
-  <h2 class="mt-5 mb-3 myfont-title text-center">Modification de Cadeau</h2>
-  <form enctype="multipart/form-data" id="form-cadeau">
+  <h3 class="mt-5 mb-3 myfont-title text-center">Modification de Cadeau</h3>
+
+  <img class="img-card" src="../assets/img/<%= cadeau_data.image %>" alt="">
+
+  <form enctype="multipart/form-data" id="modif-cadeau">
     <div class="form-floating mb-3">
       <input type="text"  name="nom" class="form-control" id="nomCadeau" placeholder="Entrez le nom du cadeau" value="<%= cadeau_data.nom %>" required>
       <label for="nomCadeau">Nom du Cadeau</label>
@@ -47,7 +15,7 @@
 
     <div class="form-floating mb-3">
       <fieldset>
-        <label for="image">Selectionnez l'image</label>
+        <label for="image" class="myfont">Selectionnez l'image</label>
       </fieldset>
       <fieldset>
         <input class="form-control"  type="file" name="image" id="image" value="../assets/img/<%= cadeau_data.image %>" />
@@ -61,7 +29,12 @@
       </label>
     </div>
 
-    <div class="form-floating mb-3 taille" >
+    <div class="form-floating mb-3 ntaille">
+      <input type="number" class="form-control" id="nbtaille" placeholder="Entrez le nombre de tailles">
+      <label for="nbtaille">Nombre de Tailles</label>
+    </div>
+
+    <!-- <div class="form-floating mb-3 taille" >
       <select class="form-select" name="taille" id="taille">
           <option value="<%= cadeau_data.taille %>" >Selectionnez la taille</option>
           <option value="s">S</option>
@@ -70,7 +43,7 @@
           <option value="xl">XL</option>
           <option value="xxl">XXL</option>
       </select>        
-    </div>
+    </div> -->
 
     <div class="form-check mb-3">
       <input class="form-check-couleur" type="checkbox" value="" id="flexCheckCouleur">
@@ -86,7 +59,6 @@
       <input type="number" class="form-control" id="nbcolor" placeholder="Entrez le nombre de couleurs" value="<%= num %>">
       <label for="nbcolor">Nombre de couleurs</label>
     </div>
-
-    <button type="submit" class="btn mybtn mb-3 btn_modifier" value="<%= cadeau_data.id %> ">Modifer</button>
+    <button type="submit" class="btn mybtn mb-3 btn-modifier" id="<%= cadeau_data.id %> ">Modifer</button>
   </form>
 </div>

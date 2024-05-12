@@ -4,11 +4,39 @@
 <script type="module" src="<%= file %>"></script>
 <script>
     $(document).ready(function(){
+
+        $('.carousel').carousel({
+            interval: 500
+        });
+
         $(".btn-signin").on("click", function(){
             console.log("djarama !");
             $.get("http://localhost:8080/logout", function(data){
                 window.location = data.link;
             });
         });
+
+        let image_account = $('<img class="image-account" src="../assets/img/utilisateur.png" alt="" width="50px" height="50px">');
+
+        var before = $(this).width();
+
+        $(window).resize(function() {
+            var after = $(this).width();
+            if (after != before) {
+                location.reload()
+            }
+        })
+
+        if ($(window).width() <= 991){
+            $('.image-account').remove();
+            let text_account = $('<p class="myfont text-account">My Account </p>');
+            $('.myaccount').append(text_account);
+        }
+        else{
+            if (!$('.myaccount').length){
+                $('.text-account').remove();
+                $('.myaccount').append(image_account);
+            }
+        }
     });
 </script>
