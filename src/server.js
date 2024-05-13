@@ -66,7 +66,8 @@ async function run(){
     server.post('/del_article_panier', cadeaux.del_article_panier);
     server.post('/panier_total', cadeaux.panier_total);
     server.post('/valid_cart', cadeaux.valid_cart);
-
+    server.get('/anniv', users.anniv);
+    server.get('/:num', users.getPages);
     server.use((req, res)=> {
       console.log(req.body);
     })

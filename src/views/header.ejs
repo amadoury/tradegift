@@ -1,7 +1,14 @@
 <% 
     let i;
-    for(i = 0; i < data.length; i++){ %>
-        <li class="nav-item active myfont" >
-            <a class="nav-link" href=<%= data[i].link %>><%= data[i].name %></a>
-        </li>
+    for(i = 0; i < data.length; i++){
+        if(data[i].name === "Panier") {
+        %>
+        <li class="nav-item active mb-2" >
+            <a class="nav-link" href=<%= data[i].link %>><img src="../assets/logo/trolley.png" width="35px" height="35px"></a>
+        </li>  
+        <% } else { %>
+            <li class="nav-item active myfont" >
+                <a class="nav-link" href=<%= data[i].link %>><%= data[i].name %></a>
+            </li>
+        <% } %>
 <% }; %>

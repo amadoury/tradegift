@@ -9,7 +9,8 @@ $(document).ready(function(){
         }
     });
 
-    $(".btn-login").on("click", function(){
+    $(".btn-login").on("click", function(e){
+        e.preventDefault();
         let pseudo = $("input[name^='pseudo']");
         let password = $("input[name^='password']");
         if (pseudo.val() && password.val()){
@@ -27,7 +28,14 @@ $(document).ready(function(){
                    $(".form-signin > .h3").after(error);
                 }
                 else{
-                    window.location = data.link;
+                    if (data.link === "/anniv"){
+                        console.log("oui");
+                        window.location = "/anniv";
+                    }
+                    else{
+                        console.log("non");
+                        window.location = "/";
+                    }
                 }
             })
             .done(function(){

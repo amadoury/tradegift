@@ -1,3 +1,4 @@
+@import url(congrat.css);
 body{
     background-color: #e8e8e8;
     display: flex;
@@ -24,7 +25,7 @@ body{
 
 .myfont-title{
     font-family: myfont;
-    font-size: 75px;
+    font-size: 50px;
 }
 
 main{
@@ -246,6 +247,23 @@ footer{
 
 .naiss{
     margin-bottom: 10px;
+}
+
+.cont-page{
+    padding-top: 70px;
+}
+
+.page-link {
+    color : #264F0B;
+}
+
+.page-link:hover {
+    color: black;
+}
+
+.div-bday{
+    border:1px solid #264F0B;
+    border-radius: 15px;
 }
 
 @media (max-width: 991px) {

@@ -13,7 +13,24 @@ module.exports = {
           req.session.type_user = "cliente";
           req.session.authorized = true;
           req.session.pseudo_client = req.body.pseudo;
-          res.json({flag:true, link:"/"});
+
+          let r = await user.search(req.session.pseudo_client);
+          let now = new Date();
+          let formattedDate = moment(r.datenaissance).format('YYYY-MM-DD');
+          let month = moment(formattedDate).month() + 1;
+          let day = moment(formattedDate).date();
+
+          console.log("m :" + month + " d : " + day);
+          console.log("m :" +  (now.getMonth() + 1) + " d : " + now.getDate());     
+
+          if (month == (now.getMonth() + 1) && day == now.getDate()){
+            console.log("hello world");
+            req.session.first = true;
+            res.json({flag:true, link:"/anniv"});
+          }
+          else{
+            res.json({flag:true, link:"/"});
+          }
         }
         else{
           res.json({flag : false, link:"/"});
@@ -25,7 +42,50 @@ module.exports = {
         let data = utils.init(utils.data_header_cliente, 'main',  '../js/main.js', req.session.pseudo_client);
         let pointUser = await user.getPointUser(req.session.pseudo_client);
         let cadUser = await cadeau.cadUser(pointUser);
+        var i = 0;
+        l = [];
+        while(i < cadUser.length){
+          m = cadUser.slice(i, i+9);
+          l.push(m);
+          i += 9;
+        }
+        data.cadUser = l[0];
+        data.nbPages = l.length;
+        req.session.pages = l;
+        res.render("index.ejs", data);
+      
+      }
+      else{
+        res.render('login.ejs', {link:"/"});
+      }
+    },
+
+    anniv : async (req, res) => {
+      if (req.session.authorized && req.session.type_user === "cliente"){
+        let data = utils.init(utils.data_header_cliente, 'congrat',  '../js/main.js', req.session.pseudo_client);
+        let pointUser = await user.getPointUser(req.session.pseudo_client);
+       
+        let cadUser = await cadeau.cadUser(pointUser);
         data.cadUser = cadUser;
+        data.congrat = true;
+        res.render("index.ejs", data);
+      }else{
+       res.render('login.ejs', {link:"/"});
+      }
+    },
+
+    getPages: async (req, res) => {
+      if (req.session.authorized && req.session.type_user === "cliente"){
+        let data;
+        if (parseInt(req.params.num, 10)== 0){
+          data = utils.init(utils.data_header_cliente, 'main',  '../js/main.js', req.session.pseudo_client);
+        }
+        else{
+          data = utils.init(utils.data_header_cliente, 'page',  '../js/main.js', req.session.pseudo_client);
+        }
+        data.cadUser = req.session.pages[parseInt(req.params.num, 10)];
+        data.nbPages = req.session.pages.length;
+        
         res.render("index.ejs", data);
       }
       else{

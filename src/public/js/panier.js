@@ -39,21 +39,32 @@ $(document).ready(function(){
         for(var i = 0; i < obj.length; i++){
             donne.push({id:obj[i].id, qte:obj[i].value})
         } 
-        $.post('/valid_cart',JSON.stringify(donne), function(data){
-            $(".success").remove();
-            $(".error").remove();
-            
-            if (data.can_buy){
-                console.log('succes');
-               let success = $('<p class="myfont text-center success">Congratulations, Thank you for purchasing from our site</p>');
-                success.css({color:"green"});
-                success.insertAfter('.title-cart');
-            }else{
-                console.log('error');
-                let error = $('<p class="myfont text-center error"> Sorry, you don\'t have that many points to purchase</p>');
-                error.css({color:'red'});
-                error.insertAfter('.title-cart');
-            }
-        });
+
+        $(".success").remove();
+        $(".error").remove();
+        $(".err").remove();
+
+        if (donne.length > 0){
+            $.post('/valid_cart',JSON.stringify(donne), function(data){
+                
+                if (data.can_buy){
+                    console.log('succes');
+                   let success = $('<p class="myfont text-center success">Congratulations, Thank you for purchasing from our site</p>');
+                    success.css({color:"green"});
+                    success.insertAfter('.title-cart');
+                }else{
+                    console.log('error');
+                    let error = $('<p class="myfont text-center error"> Sorry, you don\'t have that many points to purchase</p>');
+                    error.css({color:'red'});
+                    error.insertAfter('.title-cart');
+                }
+            });
+        }
+        else{
+            let err = $('<p class="text-center myfont err">The Cart is Empty</p>');
+            err.css({color:"red"});
+            err.insertAfter('.title-cart');
+        }
+        
     });
 });

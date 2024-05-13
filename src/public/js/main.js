@@ -5,4 +5,12 @@ $(document).ready(function(){
         $.post('/panier', {idcadeau:id}, function(data){   
         });
     });
+
+    if ($('.congrat-main').length != 0){
+        $.getScript('../js/congrat.js');
+    }
+
+    setInterval(() => {
+        $('.confetti-container').remove();
+    }, 5000);
 });
