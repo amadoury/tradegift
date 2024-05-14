@@ -34,10 +34,6 @@ server.use(session({
 
 async function run(){
 
-    server.get('/cliente', (req, res)=> {
-      res.send("hello world");
-    }); 
-  
     /* users routes */
     server.get('/', users.login);
     server.post('/', users.login_post);
@@ -67,10 +63,8 @@ async function run(){
     server.post('/panier_total', cadeaux.panier_total);
     server.post('/valid_cart', cadeaux.valid_cart);
     server.get('/anniv', users.anniv);
+    server.post('/search_items', cadeaux.search_items);
     server.get('/:num', users.getPages);
-    server.use((req, res)=> {
-      console.log(req.body);
-    })
 
     server.listen(8080);
 };

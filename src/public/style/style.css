@@ -47,7 +47,7 @@ main{
 footer{
     background-color: #101511;
     color: #fff;
-    height: 100px;
+    height: 300px;
 }
 
 #img2{
@@ -265,6 +265,16 @@ footer{
     border:1px solid #264F0B;
     border-radius: 15px;
 }
+
+.back-to-shop{
+    text-decoration: none;
+    color: #264F0B;
+}  
+
+.part-search{
+    padding-top: 70px;  
+}
+
 
 @media (max-width: 991px) {
     .btn-signin{

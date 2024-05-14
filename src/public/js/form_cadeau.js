@@ -87,7 +87,6 @@ $(document).ready(function(){
         let nom = $("#nomCadeau");
         let prix = $("#prixPoints");
         let img = $("#image");
-        console.log("hello world avant");
         if (nom.val() && prix.val() && img.val()){
 
             let array_path = img.val().split("\\");
@@ -111,7 +110,6 @@ $(document).ready(function(){
                 processData:false,
                 success: function(data){
                     if (data.flag){
-                        console.log("flag " + data.flag);
                         let success = $("<p class='myfont text-center'> The addition was successful </p>")
                         success.css({
                             color:"green"

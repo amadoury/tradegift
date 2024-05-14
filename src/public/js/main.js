@@ -1,8 +1,33 @@
 $(document).ready(function(){
-    $('.btn').on('click', function(){
-        console.log("button cliqué");
+    $('.row-present').hide().fadeIn('slow');
+
+    $(document).on('click', '.btn-cart' ,function(){
         let id = $(this).attr('id');
-        $.post('/panier', {idcadeau:id}, function(data){   
+        let ob = $(this);
+        $.post('/panier', {idcadeau:id}, function(data){  
+            let reinit = () => {
+                ob.text('ADD TO CART');
+                ob.css({color:'white'});
+                ob.hover(() => {
+                    ob.css({color:"#264F0B"});
+                }, () => {
+                    ob.css({color:"white"});
+                })
+            };
+
+            if (data.status){
+                ob.text("ITEM ADDED");
+                ob.css({
+                    color:"#381a3c"
+                });
+                setTimeout(reinit, 1500);
+            }else{
+                ob.text("ITEM NOT ADDED");
+                ob.css({
+                    color:'red'
+                });
+                setTimeout(reinit, 1500);
+            }
         });
     });
 

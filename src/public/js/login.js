@@ -29,11 +29,9 @@ $(document).ready(function(){
                 }
                 else{
                     if (data.link === "/anniv"){
-                        console.log("oui");
                         window.location = "/anniv";
                     }
                     else{
-                        console.log("non");
                         window.location = "/";
                     }
                 }

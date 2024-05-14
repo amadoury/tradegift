@@ -57,7 +57,6 @@ function Cadeau(){
     }
     
     this.edit = async (cad) => {
-        console.log("dans edit " + cad.id);
         await client.query("UPDATE cadeaux SET nom=$1, prix=$2, taille=$3, couleurs=$4, image=$5 WHERE id = $6", 
             [cad.nom, cad.prix, cad.taille, cad.couleur,cad.image, cad.id]
         );
@@ -73,6 +72,17 @@ function Cadeau(){
         }
         return l;
     }
+
+    this.searchByName = async (name) => {
+        let all = await this.getCadeaux();
+        l = [];
+        for(cad of all){
+            if (cad.nom === name){
+                l.push(cad);
+            }
+        }
+        return l;
+    } 
 }
 
 module.exports = new Cadeau();

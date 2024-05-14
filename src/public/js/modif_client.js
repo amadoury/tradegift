@@ -1,7 +1,6 @@
 $(document).ready(function(){
     let button = $("button");
     button.on('click', function(){
-        console.log("le button est cliqué");
         let pseudo = $("#floatingPseudo");
         let password = $("#floatingPassword");
         let points = $("#floatingPoints");
@@ -9,7 +8,6 @@ $(document).ready(function(){
         if (pseudo.val() && password.val() && points.val() && naiss.val()){
             let data = $(".form-modif").serialize();
             $.get('/change', data, function(data){
-                console.log(data);
                 if (data.flag){
                     $("#error").remove();
                     $("#success").remove();

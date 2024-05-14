@@ -43,6 +43,19 @@ module.exports = {
         return 0;
     },
 
+    total_panier : (req) => {
+        let sum = 0;
+        if (req.session.panier){
+            for (cad of req.session.panier){
+                sum += cad.prix;
+            }
+            return sum;
+        }
+        else{
+            return sum;
+        }
+    },
+
     calcul_total : (req) => {
         let donne;
         Object.entries(req.body).forEach(([k, v], i) => donne = k);

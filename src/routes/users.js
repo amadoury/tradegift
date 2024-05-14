@@ -19,12 +19,8 @@ module.exports = {
           let formattedDate = moment(r.datenaissance).format('YYYY-MM-DD');
           let month = moment(formattedDate).month() + 1;
           let day = moment(formattedDate).date();
-
-          console.log("m :" + month + " d : " + day);
-          console.log("m :" +  (now.getMonth() + 1) + " d : " + now.getDate());     
-
+    
           if (month == (now.getMonth() + 1) && day == now.getDate()){
-            console.log("hello world");
             req.session.first = true;
             res.json({flag:true, link:"/anniv"});
           }

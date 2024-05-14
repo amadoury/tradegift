@@ -31,9 +31,7 @@ module.exports = {
                     req.body.taille = req.body.taille.join(":");
                 }
             }
-            console.log("couleur " + req.body.couleur);
-            console.log("couleur " + req.body.taille);
-
+            
             await cadeau.insert(req.body);
             res.json({flag:true, link:"/cadeau"});
         }
@@ -102,19 +100,29 @@ module.exports = {
 
     post_panier: async (req, res) => {
         if (req.session.authorized && req.session.type_user === "cliente"){
+            console.log("mon test");
             let r = await cadeau.search(req.body.idcadeau);
-            //on doit check si le total dans le panier + le cadeau qu'on doit ajouter est <= pointUser
             if (r){
+                let pointUser = await user.getPointUser(req.session.pseudo_client);
                 if (req.session.panier){
-                    req.session.panier.push(r);
+                    if (utils.total_panier(req) + r.prix <= pointUser){
+                        req.session.panier.push(r);
+                        res.json({status:true});
+                        return;
+                    }
                 }
                 else{
-                    req.session.panier = [r];
+                    if (utils.total_panier(req) + r.prix <= pointUser){
+                        req.session.panier = [r];
+                        res.json({status:true});
+                        return;
+                    }
                 }
-                res.json({});
+                res.json({status:false});
+                return;
             }  
             else{
-                res.json({});
+                res.json({status:false});
             }
         } 
         else{
@@ -175,6 +183,27 @@ module.exports = {
         }
         else{
             res.redirect('/panier'); 
+        }
+    },
+
+    search_items: async (req, res) => {
+        if (req.session.authorized && req.session.type_user == "gerante"){
+            let r = await cadeau.searchByName(req.body.sname);
+            res.json({cadeaux:r});
+        }
+        else if (req.session.authorized && req.session.type_user == "cliente"){
+            let pointUser = await user.getPointUser(req.session.pseudo_client);
+            let r = await cadeau.cadUser(pointUser);
+            let l = [];
+            for(elem of r){
+                if (elem.nom === req.body.sname){
+                    l.push(elem);
+                }
+            }
+            res.json({cadeaux:l});
+        }
+        else{
+            res.render('login.ejs', {link:"/"}); 
         }
     }
 }

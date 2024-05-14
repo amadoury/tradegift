@@ -10,13 +10,14 @@
         });
 
         $(".btn-signin").on("click", function(){
-            console.log("djarama !");
             $.get("http://localhost:8080/logout", function(data){
                 window.location = data.link;
             });
         });
 
         let image_account = $('<img class="image-account" src="../assets/img/utilisateur.png" alt="" width="50px" height="50px">');
+        let image_panier = $('<img class="me-3 mt-2 img-panier" src="../assets/logo/search.png" width="35px" height="35px">');
+
 
         var before = $(this).width();
 
@@ -29,14 +30,93 @@
 
         if ($(window).width() <= 991){
             $('.image-account').remove();
+            $('.img-panier').remove();
+            
             let text_account = $('<p class="myfont text-account">My Account </p>');
-            $('.myaccount').append(text_account);
+            $('.myaccount').append(text_account);   
         }
         else{
             if (!$('.myaccount').length){
                 $('.text-account').remove();
                 $('.myaccount').append(image_account);
             }
+
+            if (!$('.btn-search').length){
+                $('.text-panier').remove();
+                $('.btn-search').append(image_panier);
+            }
         }
+
+        $('.part-search').hide();
+
+        $('.btn-search').on('click', function(e){
+            $('.main-body').hide();
+            $('.part-search').fadeIn("slow");
+            $('input[name^="search"]').focus();
+
+            $('input[name^="search"]').keydown(function(e){
+                if (e.keyCode == 13){
+                    e.preventDefault();
+                    $.getScript('../js/main.js');
+                    
+                    console.log("log " + $('input[name^="search"]').val());
+                    $.post('/search_items', {sname:$('input[name^="search"]').val()}, function(data){
+                        if (data.cadeaux.length > 0){
+                            
+                            for(var i = 0; i < data.cadeaux.length; i++){
+                                let strc = "";
+                                let strt = "";
+                                for(var j = 0; j < data.cadeaux[i].couleurs.length; j++){
+                                   strc += '<option value="' + data.cadeaux[i].couleurs[j] +'">' + data.cadeaux[i].couleurs[j] +'</option>';
+                                }
+
+                                for(var j = 0; j < data.cadeaux[i].taille.length; j++){
+                                   strt += '<option value="' + data.cadeaux[i].taille[j] +'">' + data.cadeaux[i].taille[j] +'</option>';
+                                }
+
+                                $('.card-search').remove();
+                                $('.text-search').remove();
+
+                                let card = $('<div class="col-lg-4 col-md-6 mb-3 mx-auto card-search">\
+                                    <div class="card  mycard">\
+                                    <img class="img-card mt-3" src="../assets/img/'+ data.cadeaux[i].image +'">\
+                                    <p class="text-center myfont mt-4">' + data.cadeaux[i].nom + '</p>\
+                                    <div class="mb-3">\
+                                        <p class="text-center myfont">' + data.cadeaux[i].prix + '</p>\
+                                    </div>\
+                                    <div class="row pl-2 pr-2 div-select mt-20">\
+                                        <div class="col mb-3 couleur" >\
+                                        <select class="form-select" name="couleur" id="couleur">\
+                                            <option value="">Color</option>'
+                                            +strc
+                                            +'\
+                                        </select> \
+                                        </div>\
+                                        <div class="col mb-3 taille" >\
+                                        <select class="form-select" name="taille" id="taille">\
+                                            <option value="">Size</option>'
+                                            +
+                                            strt
+                                            +'\
+                                        </select>\
+                                        </div>\
+                                    </div>\
+                                    <button id="' + data.cadeaux[i].id +'" class="btn mybtn btn-cart">ADD TO CART</button>\
+                                    </div>\
+                                </div>');
+                                $('.div-find-elem').append(card);
+                            }
+                        }
+                        else{
+                            $('.card-search').remove();
+                            $('.text-search').remove();
+                            let error = $('<p class="text-center myfont text-search"> We don\'t get any gifts with that name </p>');    
+                            $('.div-find-elem').append(error);
+                        }
+                    });
+                }
+            });
+
+        });
     });
 </script>
