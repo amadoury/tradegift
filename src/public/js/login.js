@@ -31,8 +31,11 @@ $(document).ready(function(){
                     if (data.link === "/anniv"){
                         window.location = "/anniv";
                     }
+                    else if (data.link === "/gerante"){
+                        window.location = "/gerante";
+                    }
                     else{
-                        window.location = "/";
+                        window.location ='/';
                     }
                 }
             })

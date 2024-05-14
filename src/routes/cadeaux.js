@@ -75,7 +75,14 @@ module.exports = {
     },
     edit_post: async (req ,res) => {
         if (req.session.authorized && req.session.type_user === "gerante"){
-            req.body.image = req.file.filename;
+            if (req.file){
+                req.body.image = req.file.filename;
+            }
+            else{
+                req.body.image = await cadeau.getImageById(parseInt(req.body.id, 10));
+                console.log("img " + req.body.image);
+            }
+
             if (req.body.couleur){
                 if (req.body.couleur.constructor == Array){
                     req.body.couleur = req.body.couleur.join(":");

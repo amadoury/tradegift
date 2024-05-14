@@ -55,6 +55,7 @@ $(document).ready(function(){
 
     $(".ntaille").hide();
     $(".couleur").hide();
+    $(".div-image").hide();
     let checkbox_taille = $(".form-check-taille");
     checkbox_taille.on("click",function(){
         if (checkbox_taille.prop( "checked" )){
@@ -79,12 +80,28 @@ $(document).ready(function(){
         }
     });
 
+    let checkbox_image = $(".form-check-image");
+    checkbox_image.on("click",function(){
+        if (checkbox_image.prop( "checked" )){
+            $(".div-image").show();
+        }
+        else{
+            $('.div-image').hide();
+        }
+    });
+
     $("#modif-cadeau").on("submit", function(e){
         e.preventDefault();
         let nom = $("#nomCadeau");
         let prix = $("#prixPoints");
         let img = $("#image");
-        if (nom.val() && prix.val() && img.val()){
+        if (nom.val() && prix.val()){
+            if (img.length > 0){
+                console.log("existe");
+            }
+            else{
+                console.log("not exits");
+            }
 
             var colors = [];
             $("input[name^='couleur']").each(function() {
