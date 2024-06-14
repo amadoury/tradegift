@@ -45,7 +45,7 @@ module.exports = {
           l.push(m);
           i += 9;
         }
-        data.cadUser = l[0];
+        data.cadUser = l.length == 0 ? [] : l[0];
         data.nbPages = l.length;
         req.session.pages = l;
         res.render("index.ejs", data);
@@ -79,8 +79,9 @@ module.exports = {
         else{
           data = utils.init(utils.data_header_cliente, 'page',  '../js/main.js', req.session.pseudo_client);
         }
-        data.cadUser = req.session.pages[parseInt(req.params.num, 10)];
-        data.nbPages = req.session.pages.length;
+        let page = req.session.pages[parseInt(req.params.num, 10)];
+        data.cadUser = page ? page : [];
+        data.nbPages = req.session.pages.length ? req.session.pages.length : 0;
         
         res.render("index.ejs", data);
       }

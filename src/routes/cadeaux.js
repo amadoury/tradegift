@@ -80,7 +80,6 @@ module.exports = {
             }
             else{
                 req.body.image = await cadeau.getImageById(parseInt(req.body.id, 10));
-                console.log("img " + req.body.image);
             }
 
             if (req.body.couleur){
@@ -94,10 +93,8 @@ module.exports = {
                     req.body.taille = req.body.taille.join(":");
                 }
             }
-            console.log(req.body.taille);
-            //await cadeau.insert(req.body);
+
             await cadeau.edit(req.body);
-            //let data = utils.init(utils.data_header_gerante, 'm_cadeau',  '../js/form_cadeau.js');
             res.json({flag:true, link:"/modif_cadeau"});
         }
         else{
